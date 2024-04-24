@@ -1,6 +1,15 @@
 # utils/helpers.py
 import re
+import bcrypt
 from datetime import datetime
+
+def hash_password(password):
+    salt = bcrypt.gensalt()
+    hashed = bcrypt.hashpw(password.encode(), salt)
+    return hashed.decode()
+
+def check_password(hashed_password, user_password):
+    return bcrypt.checkpw(user_password.encode('utf-8'), hashed_password)
 
 def validate_email(email):
     """Simple regex check for a valid email format."""

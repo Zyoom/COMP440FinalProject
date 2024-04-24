@@ -7,10 +7,10 @@ def main():
     conn = create_connection()
     if conn is not None:
         # Example usage
-        customer = Customer(conn, 'customer@example.com')
+        customer = Customer(conn, 'dave16@gmail.com')
         customer.save()
 
-        agent = Agent(conn, 'John Doe')
+        agent = Agent(conn, 'Dave', '1627')
         agent.save()
 
         email = Email(conn, 'Hello', 'This is a test email', 1, 1)

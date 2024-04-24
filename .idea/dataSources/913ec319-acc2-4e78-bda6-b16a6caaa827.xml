@@ -1013,7 +1013,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="294" parent="1" name="Project1">
-      <LastIntrospectionLocalTimestamp>2024-04-23.18:31:55</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-04-24.06:04:24</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <user id="295" parent="1" name="mysql.infoschema">
@@ -1048,7 +1048,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
     <column id="302" parent="299" name="agent_id">
-      <AutoIncrement>1</AutoIncrement>
+      <AutoIncrement>6</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1058,122 +1058,127 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <index id="304" parent="299" name="PRIMARY">
+    <column id="304" parent="299" name="password">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <index id="305" parent="299" name="PRIMARY">
       <ColNames>agent_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="305" parent="299" name="name">
+    <index id="306" parent="299" name="name">
       <ColNames>name</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="306" parent="299" name="PRIMARY">
+    <key id="307" parent="299" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="307" parent="299" name="name">
+    <key id="308" parent="299" name="name">
       <UnderlyingIndexName>name</UnderlyingIndexName>
     </key>
-    <column id="308" parent="300" name="customer_id">
-      <AutoIncrement>1</AutoIncrement>
+    <column id="309" parent="300" name="customer_id">
+      <AutoIncrement>7</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="309" parent="300" name="email">
+    <column id="310" parent="300" name="email">
       <DasType>varchar(200)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <index id="310" parent="300" name="PRIMARY">
+    <index id="311" parent="300" name="PRIMARY">
       <ColNames>customer_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="311" parent="300" name="email">
+    <index id="312" parent="300" name="email">
       <ColNames>email</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="312" parent="300" name="PRIMARY">
+    <key id="313" parent="300" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="313" parent="300" name="email">
+    <key id="314" parent="300" name="email">
       <UnderlyingIndexName>email</UnderlyingIndexName>
     </key>
-    <column id="314" parent="301" name="email_id">
-      <AutoIncrement>1</AutoIncrement>
+    <column id="315" parent="301" name="email_id">
+      <AutoIncrement>3</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="315" parent="301" name="subject">
+    <column id="316" parent="301" name="subject">
       <DasType>varchar(200)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="316" parent="301" name="body">
+    <column id="317" parent="301" name="body">
       <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="317" parent="301" name="customer_id">
+    <column id="318" parent="301" name="customer_id">
       <DasType>int|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="318" parent="301" name="agent_id">
+    <column id="319" parent="301" name="agent_id">
       <DasType>int|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="319" parent="301" name="in_reply_to">
+    <column id="320" parent="301" name="in_reply_to">
       <DasType>int|0s</DasType>
       <Position>6</Position>
     </column>
-    <column id="320" parent="301" name="sent_at">
+    <column id="321" parent="301" name="sent_at">
       <DasType>timestamp|0s</DasType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <Position>7</Position>
     </column>
-    <foreign-key id="321" parent="301" name="emails_ibfk_1">
+    <foreign-key id="322" parent="301" name="emails_ibfk_1">
       <ColNames>customer_id</ColNames>
       <RefColNames>customer_id</RefColNames>
       <RefTableName>Customers</RefTableName>
       <RefTableParentName>project1</RefTableParentName>
     </foreign-key>
-    <foreign-key id="322" parent="301" name="emails_ibfk_2">
+    <foreign-key id="323" parent="301" name="emails_ibfk_2">
       <ColNames>agent_id</ColNames>
       <RefColNames>agent_id</RefColNames>
       <RefTableName>Agents</RefTableName>
       <RefTableParentName>project1</RefTableParentName>
     </foreign-key>
-    <foreign-key id="323" parent="301" name="emails_ibfk_3">
+    <foreign-key id="324" parent="301" name="emails_ibfk_3">
       <ColNames>in_reply_to</ColNames>
       <RefColNames>email_id</RefColNames>
       <RefTableName>Emails</RefTableName>
       <RefTableParentName>project1</RefTableParentName>
     </foreign-key>
-    <index id="324" parent="301" name="PRIMARY">
+    <index id="325" parent="301" name="PRIMARY">
       <ColNames>email_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="325" parent="301" name="customer_id">
+    <index id="326" parent="301" name="customer_id">
       <ColNames>customer_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="326" parent="301" name="agent_id">
+    <index id="327" parent="301" name="agent_id">
       <ColNames>agent_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="327" parent="301" name="in_reply_to">
+    <index id="328" parent="301" name="in_reply_to">
       <ColNames>in_reply_to</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="328" parent="301" name="PRIMARY">
+    <key id="329" parent="301" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
