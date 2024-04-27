@@ -1,0 +1,17 @@
+<!-- reply_email.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reply to Email</title>
+</head>
+<body>
+    <h1>Reply to Email</h1>
+    <form method="POST" action="{{ url_for('reply_to_email', email_id=email_id) }}">
+        <textarea name="reply_text" rows="5" cols="50" placeholder="Compose your reply..."></textarea><br>
+        <input type="submit" value="Send Reply">
+    </form>
+</body>
+</html>

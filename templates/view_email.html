@@ -1,0 +1,90 @@
+<!-- view_email.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        p {
+            margin-bottom: 10px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .reply {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+    <script>
+        function toggleReplyForm() {
+            var replyForm = document.getElementById('reply-form');
+            replyForm.style.display = (replyForm.style.display === 'none') ? 'block' : 'none';
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Email Details</h1>
+        <h2>Subject: {{ email['subject'] }}</h2>
+        <p><strong>Body:</strong> {{ email['body'] }}</p>
+        <p><strong>From Customer Email:</strong> {{ email['customer_email'] }}</p>
+        <p><strong>Agent ID:</strong> {{ email['agent_id'] }}</p>
+
+        <h2>Conversation History:</h2>
+        <ul>
+            {% for reply in email['replies'] %}
+                <li class="reply">
+                    <strong>Agent ID:</strong> {{ reply[0] }}
+                    <br>
+                    <strong>Reply:</strong> {{ reply[1] }}
+                    <br>
+                    <strong>Reply Date:</strong> {{ reply[2] }}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <p><a href="#" onclick="toggleReplyForm()">Reply</a></p>
+
+        <div id="reply-form" style="display: none;">
+            <h2>Reply to Email</h2>
+            <form method="POST" action="{{ url_for('reply_to_email', email_id=email['email_id']) }}">
+                <textarea name="reply_text" rows="5" cols="50" placeholder="Compose your reply..."></textarea><br>
+                <input type="submit" value="Send Reply">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
