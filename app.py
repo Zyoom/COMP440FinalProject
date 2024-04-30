@@ -181,6 +181,25 @@ def reply_to_email(email_id):
         # Render the reply form for the agent
         return render_template('reply_email.html', email_id=email_id)
 
+@app.route('/view_sent_emails')
+def view_sent_emails():
+    # Retrieve all sent emails from the database
+    cursor.execute("SELECT * FROM Emails")
+    user_emails_data = cursor.fetchall()
+
+    user_emails = []
+    for email_tuple in user_emails_data:
+        email_dict = {
+            'email_id': email_tuple[0],
+            'subject': email_tuple[1],
+            'body': email_tuple[2],
+            'agent_id': email_tuple[4],
+            # Add other fields here
+        }
+        user_emails.append(email_dict)
+
+    return render_template('view_sent_email.html', emails=user_emails)
+
 
 @app.after_request
 def add_header(response):
