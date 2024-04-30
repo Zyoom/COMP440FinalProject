@@ -74,6 +74,15 @@
                     <strong>Reply Date:</strong> {{ reply[2] }}
                 </li>
             {% endfor %}
+            {% for reply in email['customer_replies'] %}
+                 <li class="reply">
+                     <strong>Customer Email:</strong> {{ email['customer_email'] }}
+                    <br>
+                    <strong>Customer Reply:</strong> {{ reply[1] }}
+                    <br>
+                    <strong>Reply Date:</strong> {{ reply[2] }}
+                </li>
+            {% endfor %}
         </ul>
 
         <p><a href="#" onclick="toggleReplyForm()">Reply</a></p>
