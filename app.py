@@ -52,13 +52,11 @@ def assign_email():
         # If agent_id is not in session, redirect to login page
         return redirect(url_for('login'))
 
-    agent_id = agent_id + 1
     # Save the email
     new_email = models.Email(subject=subject, body=body, customer_id=customer_id, agent_id=agent_id)
     new_email.save()
 
     return redirect(url_for('show_emails', agent_id=agent_id))
-
 
 #for agents
 @app.route('/login', methods=['GET', 'POST'])
@@ -70,7 +68,6 @@ def login():
             # Authentication successful, set session data
             session['username'] = username
             session['agent_id'] = users[username]['agent_id']
-            #print("Agent ID stored in session:", session['agent_id'])
             return redirect(url_for('agent_dashboard'))
         else:
             # Authentication failed, redirect to login page with an error message
@@ -78,6 +75,8 @@ def login():
 
     # If method is GET, render the login form
     return render_template('login.html')
+
+
 
 
 
@@ -101,6 +100,10 @@ def agent_dashboard():
         # If agent_id is not in session, redirect to login page
         return redirect(url_for('login'))
 
+    # Fetch the agent's name from the database based on the agent_id
+    cursor.execute("SELECT name FROM Agents WHERE id = %s", (agent_id,))
+    agent_data = cursor.fetchone()
+    agent_name = agent_data[0] if agent_data else None
 
     # Fetch emails for the logged-in agent
     cursor.execute("SELECT * FROM Emails")
@@ -114,9 +117,21 @@ def agent_dashboard():
             # Add other fields here
         }
         emails.append(email_dict)
-    # Render the agent dashboard template with emails
-    return render_template('agent_dashboard.html', emails=emails)
 
+    # Render the agent dashboard template with emails and agent's name
+    return render_template('agent_dashboard.html', emails=emails, agent_name=agent_name)
+
+
+
+
+@app.route('/agent/email/<int:email_id>/delete', methods=['POST'])
+def delete_email(email_id):
+    # Perform deletion of the email with the specified email_id
+    # For example:
+    cursor.execute("DELETE FROM Emails WHERE id = %s", (email_id,))
+    models.conn.commit()
+    # Redirect back to the agent dashboard after deletion
+    return redirect(url_for('agent_dashboard'))
 
 
 @app.route('/agent/email/<int:email_id>')
@@ -150,9 +165,13 @@ def view_email(email_id):
 @app.route('/agent/email/<int:email_id>/reply', methods=['GET', 'POST'])
 def reply_to_email(email_id):
     if request.method == 'POST':
+        if 'username' not in session:
+            return redirect(url_for('login'))  # Redirect if user is not logged in
+
         # Handle agent's reply to the email
         reply_text = request.form['reply_text']
-        agent_id = session['agent_id']  # Assuming agent is logged in
+        agent_id = session.get('agent_id')  # Retrieve agent_id from session
+
         # Save the reply to the database and associate it with the email
         cursor.execute("INSERT INTO Replies (email_id, agent_id, reply_text) VALUES (%s, %s, %s)",
                        (email_id, agent_id, reply_text))
@@ -161,6 +180,7 @@ def reply_to_email(email_id):
     else:
         # Render the reply form for the agent
         return render_template('reply_email.html', email_id=email_id)
+
 
 @app.after_request
 def add_header(response):
