@@ -1,0 +1,44 @@
+<!-- view_sent_email.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Sent Emails</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <header class="header">
+        <h1>User Sent Emails</h1>
+    </header>
+    <main class="main">
+        <div class="container">
+            <h2>Your Sent Emails</h2>
+            <ul class="email-list">
+                {% for email in emails %}
+                 <li>
+                    <strong>Subject:</strong> {{ email.subject }}<br>
+                    <strong>Body:</strong> {{ email.body }}<br>
+                    {% if email.replies %}
+                        <ul class="replies-list">
+                            {% for reply_type, reply_text in email.replies %}
+                                <li><strong>{{ reply_type }} Reply:</strong> {{ reply_text }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    <form action="{{ url_for('reply_to_agent_email', email_id=email.email_id) }}" method="post">
+                        <textarea name="reply_text" rows="3" cols="50" placeholder="Type your reply here..." required></textarea>
+                        <br>
+                        <button type="submit">Reply to Agent</button>
+                    </form>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </main>
+    <footer class="footer">
+        <p>&copy; 2024 Email Customer Service</p>
+    </footer>
+</body>
+</html>
