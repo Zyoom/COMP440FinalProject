@@ -1,0 +1,28 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Customer Service</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Email Customer Service</h1>
+    </header>
+    <main class="main">
+        <div class="container">
+            <h2>Select an Option</h2>
+            <ul class="option-list">
+                <li><a href="{{ url_for('agent_dashboard') }}">Agent Dashboard</a></li>
+                <li><a href="{{ url_for('show_emails', agent_id=0) }}">Submit an Email</a></li>
+            </ul>
+        </div>
+    </main>
+    <footer class="footer">
+        <p>&copy; 2024 Email Customer Service</p>
+    </footer>
+</body>
+</html>

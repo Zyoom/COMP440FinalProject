@@ -1,0 +1,91 @@
+<!-- agent_dashboard.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Dashboard</title>
+    <p>Welcome, {{ agent_name }}!</p>
+    <style>
+        /* Add some styling for the logout button */
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #0366d6;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #0645ad;
+        }
+
+        .dashboard-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f7f7f7;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .email-item {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .email-item h3 {
+            margin-top: 0;
+            font-size: 18px;
+        }
+        .email-item p {
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #333;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .delete-btn {
+            background-color: #dc3545;
+        }
+        .delete-btn:hover {
+            background-color: #bd2130;
+        }
+    </style>
+</head>
+<body>
+    <!-- Add the logout button -->
+    <a class="logout-btn" href="{{ url_for('logout') }}">Logout</a>
+    <div class="dashboard-container">
+        <h1>Agent Dashboard</h1>
+        {% for email in emails %}
+        <div class="email-item">
+            <h3>{{ email.subject }}</h3>
+            <p>{{ email.body }}</p>
+            <a href="{{ url_for('view_email', email_id=email.email_id) }}" class="btn">View</a>
+            <a href="{{ url_for('reply_to_email', email_id=email.email_id) }}" class="btn">Reply</a>
+            <form action="{{ url_for('delete_email', email_id=email.email_id) }}" method="POST" style="display: inline;">
+                <button type="submit" class="btn delete-btn">Delete</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

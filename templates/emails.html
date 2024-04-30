@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emails</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: white;
+            margin: 8px 0;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        form {
+            margin-top: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        input[type="text"], textarea, input[type="email"] {
+            width: calc(100% - 22px);
+            margin: 8px 0;
+            padding: 10px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Emails for Agent</h1>
+    <ul>
+        {% for email in emails %}
+        <li><strong>{{ email.subject }}</strong> - {{ email.body }}</li>
+        {% endfor %}
+    </ul>
+    <form method="POST" action="{{ url_for('assign_email') }}">
+        <input type="hidden" name="agent_id" value="{{ agent_id }}">
+        <input type="text" name="subject" placeholder="Subject">
+        <textarea name="body" placeholder="Body"></textarea>
+        <input type="email" name="customer_email" placeholder="Customer Email">
+        <button type="submit">Assign Email</button>
+    </form>
+</body>
+</html>
+
